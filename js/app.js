@@ -1,6 +1,11 @@
 /*
  * Create a list that holds all of your cards
  */
+let cardsList = document.querySelectorAll(".card");
+let cardsListArr = Array.from(cardsList);
+let cardsListArrShuffled;
+
+
 
 
 /*
@@ -10,20 +15,44 @@
  *   - add each card's HTML to the page
  */
 
+
+// New game restart
+
+const restartListener = document.querySelector(".restart");
+restartListener.addEventListener("click", restart);
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  array = cardsListArr;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
 
-    return array;
+  }
+
+  return array;
 }
+
+function restart() {
+  cardsListArrShuffled = shuffle(cardsListArr);
+  const deckNode = document.querySelector(".card").parentNode;
+
+  while (deckNode.firstChild) {
+    deckNode.removeChild(deckNode.firstChild);
+
+  }
+  for (i = 0; i < cardsListArr.length; i++) {
+    deckNode.appendChild(cardsListArrShuffled[i]);
+  }
+}
+
+
 
 
 /*
