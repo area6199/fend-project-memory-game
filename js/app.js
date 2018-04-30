@@ -139,25 +139,26 @@ function isMatch(cards) {
 
 //handels what heppens when the player wins the game
 function gameWon() {
-  let matchedCards = cardsListArr.filter(isMatch);
+  const matchedCards = cardsListArr.filter(isMatch);
   if (matchedCards.length === 16) {
     endingTime = performance.now();
     totalTime = endingTime - startingTime;
     const textModal = document.querySelector('.modal-moves-stars-time');
-    let starsWon = document.querySelectorAll('.fa-star:not(#modal-stars-won)').length;
-    textModal.innerHTML = 'With ' + moveCounter + ' Moves and ';
+    const starsWon = document.querySelectorAll('.fa-star:not(#modal-stars-won)').length;
+    textModal.innerHTML = 'With ' + moveCounter + ' Moves in: ' + millisToMinutesAndSeconds(totalTime) + ' and ';
     if (starsWon > 0) {
       for (var i = 0; i < starsWon; i++) {
-        let starElement = document.createElement("LI");
+        const starElement = document.createElement("LI");
         starElement.setAttribute('id', 'modal-stars-won');
         starElement.setAttribute('class', 'fa fa-star');
         textModal.appendChild(starElement);
       }
     } else {
-      let starElement = document.createElement("LI");
+      const starElement = document.createElement("LI");
       starElement.setAttribute('class', 'fa fa-star-o');
       textModal.appendChild(starElement);
     }
+
     modal.style.display = 'block';
   }
 }
