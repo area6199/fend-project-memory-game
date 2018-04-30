@@ -3,7 +3,7 @@
 const cardsList = document.querySelectorAll('.card');
 const cardsListArr = Array.from(cardsList);
 let cardsListArrShuffled;
-var cardOpen = [];
+let cardOpen = [];
 let cardSelected;
 let moveCounter = 0;
 let startingTime;
@@ -21,10 +21,13 @@ restart();
  *   - add each card's HTML to the page
  */
 
-// New game/ restart
-
+//Selector
 const restartSelector = document.querySelector('.restart');
 
+//Selector
+document.getElementById('modal-new-game-button').addEventListener('click', closeModal);
+
+//listener of new game button
 restartSelector.addEventListener('click', restart);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -32,35 +35,17 @@ function shuffle(array) {
   // array = cardsListArr;
   var currentIndex = array.length,
     temporaryValue, randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
-
   }
-
   return array;
 }
 
-function resetMoves() {
-  const moveSelector = document.querySelector('.moves');
-  moveCounter = 0;
-  moveSelector.innerHTML = moveCounter;
-}
-
-function resetCards(array) {
-  for (var i = 0; i < array.length; i++) {
-    array[i].setAttribute('class', 'card');
-  }
-}
-
-function resetFoundPairs() {
-  foundPairs = 0;
-}
-
+// handels the restart dunctionality
 function restart() {
   resetCards(cardsList);
   cardsListArrShuffled = shuffle(cardsListArr);
@@ -69,15 +54,26 @@ function restart() {
   while (deckNode.firstChild) {
     deckNode.removeChild(deckNode.firstChild);
   }
-
   for (i = 0; i < cardsListArr.length; i++) {
     deckNode.appendChild(cardsListArrShuffled[i]);
   }
-
   resetMoves();
   cardsEventListener();
-  resetFoundPairs();
   stars();
+}
+
+//reset moveCounter
+function resetMoves() {
+  const moveSelector = document.querySelector('.moves');
+  moveCounter = 0;
+  moveSelector.innerHTML = moveCounter;
+}
+
+//reset open cards
+function resetCards(array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].setAttribute('class', 'card');
+  }
 }
 
 /*
@@ -104,6 +100,7 @@ function cardsEventListener() {
 
 cardsEventListener();
 
+//moveCounter
 function moves() {
   const moveSelector = document.querySelector('.moves');
   ++moveCounter;
@@ -111,41 +108,37 @@ function moves() {
 
 }
 
+//array which holds the open cards
 function openCards(card) {
-
   cardOpen.push(card);
 }
 
+// if the cards do match they are locked in the open position
 function lockCards() {
-
   cardOpen[0].setAttribute('class', 'card match');
   cardOpen[1].setAttribute('class', 'card match');
   cardOpen = [];
   moves();
   stars();
-
-  // activate cardsEventListener
-
   cardsEventListener();
 }
 
+//hide cards
 function removeCards() {
   resetCards(cardOpen);
   cardOpen = [];
   moves();
   stars();
-
-  // activate cardsEventListener
-
   cardsEventListener();
 }
 
+//match function
+function isMatch(cards) {
+  return cards.className === 'card match';
+}
+
+//handels what heppens when the player wins the game
 function gameWon() {
-
-  function isMatch(cards) {
-    return cards.className === 'card match';
-  }
-
   let matchedCards = cardsListArr.filter(isMatch);
   if (matchedCards.length === 16) {
     endingTime = performance.now();
@@ -153,32 +146,30 @@ function gameWon() {
     const textModal = document.querySelector('.modal-moves-stars-time');
     let starsWon = document.querySelectorAll('.fa-star:not(#modal-stars-won)').length;
     textModal.innerHTML = 'With ' + moveCounter + ' Moves and ';
-
     if (starsWon > 0) {
       for (var i = 0; i < starsWon; i++) {
-        alert(i);
         let starElement = document.createElement("LI");
         starElement.setAttribute('id', 'modal-stars-won');
         starElement.setAttribute('class', 'fa fa-star');
         textModal.appendChild(starElement);
       }
-
     } else {
       let starElement = document.createElement("LI");
       starElement.setAttribute('class', 'fa fa-star-o');
       textModal.appendChild(starElement);
     }
     modal.style.display = 'block';
-
   }
 }
 
+//conversion function
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
+//total playtime function to start timer
 function startTimer() {
   if (timerStarted === false) {
     startingTime = performance.now();
@@ -187,6 +178,7 @@ function startTimer() {
 
 }
 
+//handels what happens when the player clicks on a card
 function open() {
   cardSelected = $(event.target);
   cardSelected = cardSelected[0];
@@ -200,24 +192,23 @@ function open() {
     $('li').off();
     if (cardOpen[0].childNodes[1].className === cardOpen[1].childNodes[1].className) {
       lockCards();
-      ++foundPairs;
       gameWon();
     } else {
       cardOpen[0].setAttribute('class', 'card open show wrong');
       cardOpen[1].setAttribute('class', 'card open show wrong');
+
+      //the timeout function is needed to see the wrong cards for a short time
       setTimeout(function() {
         removeCards();
-
       }, 300);
     }
   }
 }
 
+//handles stars dependent on moves of the player
 function stars() {
-  let starSelector = document.querySelector('.stars');
-
+  const starSelector = document.querySelector('.stars');
   switch (true) {
-
     case (moveCounter >= 20):
       starSelector.children[0].firstElementChild.setAttribute('class', 'fa fa-star-o');
       break;
@@ -232,7 +223,6 @@ function stars() {
       starSelector.children[1].firstElementChild.setAttribute('class', 'fa fa-star');
       starSelector.children[2].firstElementChild.setAttribute('class', 'fa fa-star');
   }
-
 }
 
 // Get the modal
@@ -246,18 +236,15 @@ span.onclick = function() {
   modal.style.display = 'none';
 };
 
-// When the user clicks anywhere outside of the modal, close it
-
+// When the user clicks anywhere outside of the modal, close it without restart
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = 'none';
   }
 };
 
+// close modal and restart game
 function closeModal() {
   restart();
   modal.style.display = 'none';
 }
-
-//listener of new game button
-document.getElementById('modal-new-game-button').addEventListener('click', closeModal);

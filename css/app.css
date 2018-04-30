@@ -81,18 +81,13 @@ h1 {
   animation-iteration-count: 2;
 }
 
-
-
-
 @keyframes cardMatch {
-
   0% {
     transform: rotate(90deg);
   }
   33% {
     transform: rotate(180deg);
   }
-
   66% {
     transform: rotate(270deg);
   }
@@ -101,17 +96,10 @@ h1 {
   }
 }
 
-#card-open-show-wrong{
-  /* background: red; */
-  animation: cardNotMatch 0.25s;
+.card.open.show.wrong {
+  animation: cardNotMatch 0.3s;
   animation-iteration-count: 1;
 }
-.card.open.show.wrong{
-  /* background: red; */
-  animation: cardNotMatch 0.25s;
-  animation-iteration-count: 1;
-}
-
 
 @keyframes cardNotMatch {
   5% {
@@ -201,17 +189,6 @@ h1 {
 
 /* Add Animation */
 
-@-webkit-keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0
-  }
-  to {
-    top: 0;
-    opacity: 1
-  }
-}
-
 @keyframes animatetop {
   from {
     top: -300px;
@@ -250,8 +227,6 @@ h1 {
 
 .modal-footer {
   padding: 2px 16px;
-  /* background: #24252A;
-  color: white; */
   background-color: #3C3C3C;
 }
 
@@ -260,26 +235,9 @@ h1 {
 }
 
 .modal-new-game-button {
-  margin: auto;
-  line-height: 100px;
-  height: 250px;
-  text-align: center;
+  margin: 100px auto;
   width: 250px;
   cursor: pointer;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modal-button {
-  /* cursor: pointer;
-  font-size: 25px;
-  margin: 10px;
-  background: #24252A; */
-}
-
-.modal-button {
-  margin: auto;
-  width: 50%;
 }
 
 .btn {
