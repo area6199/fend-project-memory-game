@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Matching Game</title>
   <meta name="description" content="">
   <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -24,16 +25,16 @@
         <li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>
       </ul>
-
-      <span class="moves">0</span>
-      <span class="moves">&nbsp Moves</span>
-
+      <div class="movesContainer">
+        <span class="moves">0</span>
+        <span class="moves">&nbsp Moves</span>
+      </div>
+      <div class="timeContainer">
+        <span class="time">Playtime</span>
+        <time class="timer">0:00</time>
+      </div>
       <div class="restart">
         <i class="fa fa-repeat"></i>
-      </div>
-      <div class="time">
-        <span class="time">&nbsp Playtime</span>
-        <time class="timer">0:00</time>
       </div>
     </section>
 
@@ -94,14 +95,14 @@
 
     <!-- Modal content -->
     <div class="modal-content">
+
       <div class="modal-header">
-        <span class="close">&times;</span>
         <h2>Memory Game</h2>
       </div>
       <div class="modal-body">
         <h1>Congratulattions! You Won!</h1>
-        <p class="modal-moves-stars-time"></p>
-        <p>Woooo!</p>
+        <h2 class="modal-moves-stars-time"></h2>
+        <h2>Woooo!</h2>
       </div>
       <div class="modal-footer">
         <div class="modal-button">
@@ -110,7 +111,7 @@
         <div class="modal-new-game-button" id="modal-new-game-button">
 
           <div class="btn btn-two">
-            <span>New Game</span>
+            <h1>New Game</h1>
           </div>
 
         </div>
