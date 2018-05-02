@@ -1,6 +1,7 @@
 // Create a list that holds all of your cards
 
 const cardsList = document.querySelectorAll('.card');
+const playtime = document.querySelector('.timer');
 const cardsListArr = Array.from(cardsList);
 let cardsListArrShuffled;
 let cardOpen = [];
@@ -77,6 +78,8 @@ function resetMoves() {
 
 function restPlayTime() {
   timerStarted = false;
+  startingTime = 0;
+  playtime.textContent = '0:00';
 }
 
 //reset open cards
@@ -158,13 +161,13 @@ function gameWon() {
     textModal.innerHTML = 'With ' + moveCounter + ' Moves in: ' + millisToMinutesAndSeconds(totalTime) + ' and ';
     if (starsWon > 0) {
       for (var i = 0; i < starsWon; i++) {
-        const starElement = document.createElement("LI");
+        const starElement = document.createElement('LI');
         starElement.setAttribute('id', 'modal-stars-won');
         starElement.setAttribute('class', 'fa fa-star');
         textModal.appendChild(starElement);
       }
     } else {
-      const starElement = document.createElement("LI");
+      const starElement = document.createElement('LI');
       starElement.setAttribute('class', 'fa fa-star-o');
       textModal.appendChild(starElement);
     }
@@ -179,6 +182,21 @@ function millisToMinutesAndSeconds(millis) {
   const seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
+
+//shows playtime on page
+
+let showPlayTime = setInterval(function() {
+  if (startingTime > 0) {
+    playtime.textContent = millisToMinutesAndSeconds(performance.now() - startingTime);
+  } else {
+    playtime.textContent = '0:00';
+  }
+
+}, 1000);
+
+// function setshowPlayTime() {
+//
+// }
 
 //total playtime function to start timer
 function startTimer() {
