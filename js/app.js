@@ -220,9 +220,6 @@ function open() {
 function stars() {
   const starSelector = document.querySelector('.stars');
   switch (true) {
-    case (moveCounter >= 20):
-      starSelector.children[0].firstElementChild.setAttribute('class', 'fa fa-star-o');
-      break;
     case (moveCounter >= 15):
       starSelector.children[1].firstElementChild.setAttribute('class', 'fa fa-star-o');
       break;
