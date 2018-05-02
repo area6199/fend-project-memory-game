@@ -255,19 +255,25 @@ function stars() {
 const modal = document.getElementById('myModal');
 
 // Get the <span> element that closes the modal
-const span = document.getElementsByClassName('close')[0];
+const closeModalButton = document.getElementsByClassName('close')[0];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+closeModalButton.addEventListener('click', function() {
   modal.style.display = 'none';
-};
+});
 
 // When the user clicks anywhere outside of the modal, close it without restart
-window.onclick = function(event) {
+window.addEventListener('click', function(event) {
   if (event.target == modal) {
     modal.style.display = 'none';
   }
-};
+});
+
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = 'none';
+//   }
+// };
 
 // close modal and restart game
 function closeModal() {
