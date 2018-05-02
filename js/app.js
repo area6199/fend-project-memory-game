@@ -54,9 +54,12 @@ function restart() {
   while (deckNode.firstChild) {
     deckNode.removeChild(deckNode.firstChild);
   }
+
   for (i = 0; i < cardsListArr.length; i++) {
     deckNode.appendChild(cardsListArrShuffled[i]);
   }
+
+  cardOpen = [];
   resetMoves();
   cardsEventListener();
   stars();
