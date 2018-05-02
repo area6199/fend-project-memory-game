@@ -60,6 +60,7 @@ function restart() {
   resetMoves();
   cardsEventListener();
   stars();
+  restPlayTime();
 }
 
 //reset moveCounter
@@ -67,6 +68,12 @@ function resetMoves() {
   const moveSelector = document.querySelector('.moves');
   moveCounter = 0;
   moveSelector.innerHTML = moveCounter;
+}
+
+//reset playtime
+
+function restPlayTime() {
+  timerStarted = false;
 }
 
 //reset open cards
@@ -165,8 +172,8 @@ function gameWon() {
 
 //conversion function
 function millisToMinutesAndSeconds(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
